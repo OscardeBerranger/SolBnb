@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PropertyRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,25 +38,6 @@ class Property
 
     #[ORM\Column]
     private ?int $bathrooms = null;
-
-    #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: 'properties')]
-    private Collection $equipments;
-
-    #[ORM\ManyToOne(inversedBy: 'properties')]
-    private ?Profile $profile = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
-
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
-
-
-
-    public function __construct()
-    {
-        $this->equipments = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -160,67 +139,6 @@ class Property
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, Equipment>
-     */
-    public function getEquipments(): Collection
-    {
-        return $this->equipments;
-    }
-
-    public function addEquipment(Equipment $equipment): static
-    {
-        if (!$this->equipments->contains($equipment)) {
-            $this->equipments->add($equipment);
-        }
-
-        return $this;
-    }
-
-    public function removeEquipment(Equipment $equipment): static
-    {
-        $this->equipments->removeElement($equipment);
-
-        return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(?Profile $profile): static
-    {
-        $this->profile = $profile;
-
-        return $this;
-    }
-
-    public function getStatus(): ?string
-    {
-        return $this->status;
-    }
-
-    public function setStatus(string $status): static
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getImage(): ?Image
-    {
-        return $this->image;
-    }
-
-    public function setImage(?Image $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
 
 
 }
