@@ -3,13 +3,14 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    <div class="mainContainer">
-        <h2>This page will soon be displaying something just take a coffee and wait :)</h2>
-        <img class="wipImg" src="images/WorkInProgress.png" alt="wip.png">
-    </div>
-
-    {% for home in homes %}
-        <p>{{ home.nom }}</p>
+    {% for property in properties %}
+        <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{ property.name }}</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
     {% endfor %}
-
 {% endblock %}

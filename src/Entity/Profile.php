@@ -27,9 +27,13 @@ class Profile
     #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Address::class)]
     private Collection $address;
 
+    #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Property::class)]
+    private Collection $properties;
+
     public function __construct()
     {
         $this->address = new ArrayCollection();
+        $this->properties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,6 +101,36 @@ class Profile
             // set the owning side to null (unless already changed)
             if ($address->getProfile() === $this) {
                 $address->setProfile(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Property>
+     */
+    public function getProperties(): Collection
+    {
+        return $this->properties;
+    }
+
+    public function addProperty(Property $property): static
+    {
+        if (!$this->properties->contains($property)) {
+            $this->properties->add($property);
+            $property->setProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProperty(Property $property): static
+    {
+        if ($this->properties->removeElement($property)) {
+            // set the owning side to null (unless already changed)
+            if ($property->getProfile() === $this) {
+                $property->setProfile(null);
             }
         }
 

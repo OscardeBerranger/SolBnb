@@ -45,8 +45,11 @@ class PropertiesController extends AbstractController
             $property->setProfile($this->getUser()->getProfile());
             $property->setStatus('app_equipements');
             $manager->persist($property);
+            $image = $property->getImage();
+            $image->setProperty($property);
+            $manager->persist($image);
             $manager->flush($property);
-            return $this->redirectToRoute('app_image_create', [
+            return $this->redirectToRoute('app_home', [
                 "id"=>$property->getId(),
             ]);
         }

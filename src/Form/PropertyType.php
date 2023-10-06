@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Category;
+use App\Entity\Equipment;
 use App\Entity\Property;
 use App\Repository\CategoryRepository;
+use App\Repository\EquipmentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PropertyType extends AbstractType
 {
@@ -30,6 +33,18 @@ class PropertyType extends AbstractType
                     ->orderBy('cat.name', 'ASC');
                 },
             ])
+            ->add('equipments', EntityType::class, [
+                'class'=>Equipment::class,
+                'query_builder' => function (EquipmentRepository $equipmentRepository) {
+                    return $equipmentRepository->createQueryBuilder('equipment')
+                        ->orderBy('equipment.name', 'ASC');
+                },
+                'choice_label' => 'name',
+                'expanded'=>true,
+                'multiple'=>true,
+                'label'=>'Equipement'
+            ])
+            ->add('image', ImageType::class)
         ;
     }
 
