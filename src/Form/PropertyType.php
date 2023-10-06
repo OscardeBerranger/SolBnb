@@ -9,6 +9,7 @@ use App\Repository\CategoryRepository;
 use App\Repository\EquipmentRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -44,7 +45,15 @@ class PropertyType extends AbstractType
                 'multiple'=>true,
                 'label'=>'Equipement'
             ])
-            ->add('image', ImageType::class)
+            ->add('property', CollectionType::class, [
+                'entry_type'=>PropertyType::class,
+                'allow_add'=>true,
+                'allow_delete'=>true,
+                'required'=>true,
+                'by_reference'=>false,
+                'disabled'=>false,
+                'prototype'=>true
+            ])
         ;
     }
 
