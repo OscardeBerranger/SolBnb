@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\HttpFoundation\File\File;
@@ -25,11 +27,13 @@ class Image implements Serializable
     #[ORM\Column(nullable: true)]
     private ?int $imageSize = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'images')]
     private ?Property $property = null;
 
-    #[ORM\OneToOne(mappedBy: 'profilePicture', cascade: ['persist', 'remove'])]
-    private ?Profile $profile = null;
+    public function __construct()
+    {
+    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -82,22 +86,6 @@ class Image implements Serializable
         return $this->id;
     }
 
-    public function getProperty(): ?Property
-    {
-        return $this->property;
-    }
-
-    public function setProperty(?Property $property): self
-    {
-        $this->property = $property;
-
-        return $this;
-    }
-
-    public function getProfile(): ?Profile
-    {
-        return $this->profile;
-    }
 
 
     public function serialize()
@@ -117,4 +105,18 @@ class Image implements Serializable
 {
     // TODO: Implement unserialize() method.
 }
+
+public function getProperty(): ?Property
+{
+    return $this->property;
+}
+
+public function setProperty(?Property $property): static
+{
+    $this->property = $property;
+
+    return $this;
+}
+
+
 }

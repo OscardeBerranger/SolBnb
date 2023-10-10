@@ -50,14 +50,17 @@ class Property
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Image $image = null;
+    #[ORM\OneToMany(mappedBy: 'property', targetEntity: Image::class, cascade: ['persist'])]
+    private Collection $images;
+
+
 
 
 
     public function __construct()
     {
         $this->equipments = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -209,18 +212,35 @@ class Property
         return $this;
     }
 
-    public function getImage(): ?Image
+    /**
+     * @return Collection<int, image>
+     */
+    public function getImages(): Collection
     {
-        return $this->image;
+        return $this->images;
     }
 
-    public function setImage(?Image $image): static
+    public function addImage(image $image): static
     {
-        $this->image = $image;
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setProperty($this);
+        }
 
         return $this;
     }
 
+    public function removeImage(image $image): static
+    {
+        if ($this->images->removeElement($image)) {
+            // set the owning side to null (unless already changed)
+            if ($image->getProperty() === $this) {
+                $image->setProperty(null);
+            }
+        }
+
+        return $this;
+    }
 
 
 }

@@ -45,14 +45,15 @@ class PropertyType extends AbstractType
                 'multiple'=>true,
                 'label'=>'Equipement'
             ])
-            ->add('property', CollectionType::class, [
-                'entry_type'=>PropertyType::class,
+            ->add('images', CollectionType::class, [
+                'entry_type'=>ImageType::class,
                 'allow_add'=>true,
                 'allow_delete'=>true,
-                'required'=>true,
+                'required'=>false,
                 'by_reference'=>false,
                 'disabled'=>false,
-                'prototype'=>true
+                'prototype'=>true,
+                'label'=>false
             ])
         ;
     }
