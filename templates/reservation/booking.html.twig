@@ -5,6 +5,9 @@
 {% block body %}
 
     {{ form_start(form) }}
+    {{ form_row(form.bookStart) }}
+    {{ form_row(form.bookEnd) }}
+    <button type="submit" class="btn btn-success">Submit</button>
     {{ form_end(form) }}
 
 {% endblock %}

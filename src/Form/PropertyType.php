@@ -26,6 +26,8 @@ class PropertyType extends AbstractType
             ->add('bedrooms')
             ->add('beds')
             ->add('bathrooms')
+            ->add('description')
+
             ->add('category', EntityType::class, [
                 'class'=>Category::class,
                 'choice_label'=>'name',
@@ -55,6 +57,7 @@ class PropertyType extends AbstractType
                 'prototype'=>true,
                 'label'=>false
             ])
+
         ;
     }
 

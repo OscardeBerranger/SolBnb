@@ -26,7 +26,9 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    {% if app.user %}
+                        <a href="{{ path('app_reservation_showReservations') }}" class="nav-link">my reservations</a>
+                    {% endif %}
                 </li>
             </ul>
             <form class="d-flex" role="search">

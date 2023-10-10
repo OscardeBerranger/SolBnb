@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ReservationController!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2>You have booked</h2>
+        {% for reservation in reservations %}
+            <p>
+                {{ reservation.property.name }}
+                <br>
+                for the
+                {{ reservation.bookStart|date("m/d/Y") }}
+                <br>
+                to the
+                {{ reservation.bookStart|date("m/d/Y") }}
+            </p>
+        {% endfor %}
+
+    </div>
+
+{% endblock %}

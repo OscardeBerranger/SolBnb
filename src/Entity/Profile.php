@@ -30,10 +30,14 @@ class Profile
     #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Property::class)]
     private Collection $properties;
 
+    #[ORM\OneToMany(mappedBy: 'profile', targetEntity: Reservation::class, orphanRemoval: true)]
+    private Collection $reservations;
+
     public function __construct()
     {
         $this->address = new ArrayCollection();
         $this->properties = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,6 +135,36 @@ class Profile
             // set the owning side to null (unless already changed)
             if ($property->getProfile() === $this) {
                 $property->setProfile(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): static
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations->add($reservation);
+            $reservation->setProfile($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): static
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getProfile() === $this) {
+                $reservation->setProfile(null);
             }
         }
 

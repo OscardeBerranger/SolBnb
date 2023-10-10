@@ -3,14 +3,20 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-    {% for property in properties %}
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">{{ property.name }}</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+    <div class="container d-flex">
+        {% for property in properties %}
+            <div class="card" style="width: 18rem;">
+                {% for image in property.images %}
+                    <div class="col-4">
+                        <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('vignette') }}" alt="">
+                    </div>
+                {% endfor %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.name }}</h5>
+                    <p class="card-text">{{ property.description }}</p>
+                    <a href="{{ path('app_show_property', {id:property.id}) }}" class="btn btn-primary">See more</a>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

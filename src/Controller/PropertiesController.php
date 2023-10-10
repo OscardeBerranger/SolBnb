@@ -56,5 +56,12 @@ class PropertiesController extends AbstractController
         ]);
     }
 
+    #[Route('/user/showProperty/{id}', name: 'app_show_property')]
+    public function showProperty(Property $property){
+        return $this->render('properties/show.html.twig', [
+            'property'=>$property
+        ]);
+    }
+
 
 }

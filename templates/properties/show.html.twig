@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PropertiesController!{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <h2>{{ property.name }}</h2>
+    <p>{{ property.description }}</p>
+
+    {% for image in property.images %}
+        <div class="col-4">
+            <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('vignette') }}" alt="">
+        </div>
+    {% endfor %}
+
+
+    <h3>{{ property.name }} est équipée de : </h3>
+
+    {% for equipment in property.equipments %}
+        <p>{{ equipment.name }}</p>
+    {% endfor %}
+</div>
+
+
+
+    <a href="{{ path('app_reservation', {id:property.id}) }}" class="btn btn-success">Réserver {{ property.name }}</a>
+{% endblock %}

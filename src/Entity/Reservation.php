@@ -20,6 +20,13 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $bookEnd = null;
 
+    #[ORM\OneToOne(inversedBy: 'reservation', cascade: ['persist', 'remove'])]
+    private ?Property $property = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reservations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Profile $profile = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -45,6 +52,30 @@ class Reservation
     public function setBookEnd(\DateTimeInterface $bookEnd): static
     {
         $this->bookEnd = $bookEnd;
+
+        return $this;
+    }
+
+    public function getProperty(): ?Property
+    {
+        return $this->property;
+    }
+
+    public function setProperty(?Property $property): static
+    {
+        $this->property = $property;
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): static
+    {
+        $this->profile = $profile;
 
         return $this;
     }

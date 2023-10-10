@@ -53,6 +53,12 @@ class Property
     #[ORM\OneToMany(mappedBy: 'property', targetEntity: Image::class, cascade: ['persist'])]
     private Collection $images;
 
+    #[ORM\OneToOne(mappedBy: 'property', cascade: ['persist', 'remove'])]
+    private ?Reservation $reservation = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
+
 
 
 
@@ -238,6 +244,40 @@ class Property
                 $image->setProperty(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($reservation === null && $this->reservation !== null) {
+            $this->reservation->setProperty(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($reservation !== null && $reservation->getProperty() !== $this) {
+            $reservation->setProperty($this);
+        }
+
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }
