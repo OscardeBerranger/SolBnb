@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+    <h4>What kind of equipment does {{ property.name }} have ?</h4>
+
+
+    <div class="container">
+        {% for equipment in equipments %}
+            <div class="container">
+                <a href="" class="btn btn-primary m-2">{{ equipment.name }}</a>
+            </div>
+        {% endfor %}
+        <div class="container">
+            <a href="{{ path('app_equipment') }}" class="btn btn-success">Ajouter un équipement</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Choose Address
+    </button>
+    <ul class="dropdown-menu">
+        {% for address in addresses %}
+            <li><a class="dropdown-item" href="{{ path("app_property_with_address", {id: address.id}) }}">{{ address.name }}</a></li>
+        {% endfor %}
+        <li><a class="dropdown-item" href="{{ path("app_address") }}">Add Address</a></li>
+    </ul>
+</div>

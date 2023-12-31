@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileController!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h4>Hello {{ profile.name }} this is your profile controle pannel you can change your informations from here !</h4>
+
+    <p>Name : {{ profile.name }}</p>
+    <p>LastName : {{ profile.lastname }}</p>
+</div>
+{% endblock %}

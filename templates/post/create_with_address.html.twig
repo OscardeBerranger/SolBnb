@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h5>Your property {{ address.name }} is located in : </h5>
+        <p>{{ address.streetNumber }} {{ address.street }} {{ address.zipcode }} {{ address.city }}</p>
+
+
+
+        <p>
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.area) }}
+            {{ form_row(form.rooms) }}
+            {{ form_row(form.toilets) }}
+            {{ form_row(form.bedrooms) }}
+            {{ form_row(form.beds) }}
+            {{ form_row(form.bathrooms) }}
+            {{ form_row(form.category) }}
+            <button type="submit" class="btn btn-success">Submit</button>
+            {{ form_end(form) }}
+
+
+        </p>
+    </div>
+{% endblock %}
