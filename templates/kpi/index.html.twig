@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello KpiController!{% endblock %}
+
+{% block body %}
+    <div style="width: 500px; ">
+        {{ render_chart(chartLine) }}
+    </div>
+    <div style="width: 500px; ">
+        {{ render_chart(chartDoughnut) }}
+    </div>
+{% endblock %}
