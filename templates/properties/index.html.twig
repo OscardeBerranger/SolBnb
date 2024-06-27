@@ -5,6 +5,25 @@
 {% block body %}
 
 
-
+    {% for property in properties %}
+        <div class="card" style="width: 18rem;">
+            {% for image in property.images %}
+                <div class="col-4">
+                    <img src="{{ vich_uploader_asset(image, 'imageFile')|imagine_filter('vignette') }}" alt="">
+                </div>
+            {% endfor %}
+            <div class="card-body">
+                <h5 class="card-title">{{ property.name }}</h5>
+                <p class="card-text">{{ property.description }}</p>
+                <a href="{{ path('app_show_property', {id:property.id}) }}" class="btn btn-primary">See more</a>
+                {% if app.user %}
+                    {% if app.user.profile.id == property.profile.id %}
+                        aa
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
     <a href="{{ path('app_property') }}" class="btn btn-success">add property</a>
 {% endblock %}
+e

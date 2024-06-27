@@ -20,7 +20,7 @@ class Reservation
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $bookEnd = null;
 
-    #[ORM\OneToOne(inversedBy: 'reservation', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'reservation')]
     private ?Property $property = null;
 
     #[ORM\ManyToOne(inversedBy: 'reservations')]

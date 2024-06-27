@@ -9,8 +9,17 @@
 import './styles/app.scss';
 import './styles/home.scss';
 
+
+
 // app.js
 
 document.addEventListener('DOMContentLoaded', ()=>{
     require('bootstrap');
 })
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'resourceTimelineWeek'
+    });
+    calendar.render();
+});

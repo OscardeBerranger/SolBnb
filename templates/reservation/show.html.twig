@@ -1,23 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello ReservationController!{% endblock %}
+{% block javascripts %}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.9/index.global.min.js'></script>
 
-{% block body %}
+    {% if json is empty %}
+        <h4>You haven't booked anything yet</h4>
+    {% endif %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                local:'fr',
+                headerToolbar: {
+                    left: 'prev,next',
+                    center: 'title',
+                    right: 'timeGridWeek, timeGridDay, timeGridMonth, listWeek'
+                },
+                events:
+            {{ json|raw }}
+            });
+            calendar.render();
+        });
 
-    <div class="container">
-        <h2>You have booked</h2>
-        {% for reservation in reservations %}
-            <p>
-                {{ reservation.property.name }}
-                <br>
-                for the
-                {{ reservation.bookStart|date("m/d/Y") }}
-                <br>
-                to the
-                {{ reservation.bookStart|date("m/d/Y") }}
-            </p>
-        {% endfor %}
+    </script>
 
-    </div>
-
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('calendar') }}
 {% endblock %}
+{% block body %}
+    <div id="calendar"></div>
+{% endblock %}
+

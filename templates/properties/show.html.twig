@@ -24,5 +24,16 @@
 
 
 
-    <a href="{{ path('app_reservation', {id:property.id}) }}" class="btn btn-success">Réserver {{ property.name }}</a>
+    {% if property.profile.id == app.user.profile.id %}
+        <h4>Reservations :</h4>
+        {% if property.reservation %}
+            <p>L'utilisateur appelé {{ property.reservation.profile.name }} a reservé votre propriété pour le</p>
+            <p>{{ property.reservation.bookStart|date("m/d/Y") }} jusqu'au {{ property.reservation.bookEnd|date("m/d/Y") }}</p>
+
+            <a href="{{ path('app_reservation_deleteReservation', {id:property.reservation.id}) }}" class="btn btn-danger">supprimer la réservation</a>
+
+        {% endif %}
+        {% else %}
+            <a href="{{ path('app_reservation', {id:property.id}) }}" class="btn btn-success">Réserver {{ property.name }}</a>
+    {% endif %}
 {% endblock %}
